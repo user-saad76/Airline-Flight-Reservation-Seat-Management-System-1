@@ -1,4 +1,4 @@
-
+import java.util.Scanner;
 
 class Person{
       private String name;
@@ -67,7 +67,23 @@ class Flight{
 
 }
 class Seat{
+   private int seatNumber;
+   private String seatType;
+   private int isBooked;
 
+   Seat(int seatNumber){
+       this.seatNumber = seatNumber;
+
+   }
+   int getSeatNumber(){
+       return seatNumber;
+   }
+    String getSeatType(){
+        return seatType;
+    }
+    int getIsBooked(){
+       return isBooked;
+    }
 }
 class Reservation{
 
@@ -88,6 +104,7 @@ public class main {
     public static void main(String[] args) {
 
         System.out.println("*************************Airline Flight Reservation & Seat Management System***************************");
+        Scanner input = new Scanner(System.in);
         String[][] flights = {
                 {" FlightID ", " flightName ", " Destination ", " TotalSeats "}
                 , {" 101 ", " PK-301 ", " Karachi ", " 20 "}
@@ -98,22 +115,70 @@ public class main {
         int totalFlights = 5;
         Flight[] flight = new Flight[totalFlights];
         System.out.println();
-        for (int row = 0; row < flights.length; row++) {
-            for (int column = 0; column < flights[row].length; column++) {
-                if (column == 0) {
-                    flight[column].flightID = flights[row][column];
-                } else if (column == 1) {
-                    flight[column].flightName = flights[row][column];
-                } else if (column == 2) {
-                    flight[column].Destination = flights[row][column];
-                } else if (column == 3) {
-                    flight[column].TotalSeats = flights[row][column];
-                }
-            }
-        }
-        for(int x = 0;x<flights.length;x++){
-            System.out.println(flight[x].FlightID() + "   " + flight[x].FlightName() +  "   " + flight[x].Destruction() +  "  " + flight[x].TotalSeats());
-        }
+         for(int row = 1;row<flights.length;row++){
+             int index = row-1;
+             flight[index] = new Flight(flights[row][0].trim(),
+                     flights[row][1].trim(),
+                     flights[row][2].trim(),
+                     flights[row][3].trim());
+         }
+        System.out.println(" FlightID "  + " flightName " + " Destination " + "  TotalSeats ");
+         for(int x = 0;x<totalFlights-1;x++){
+             System.out.println(flight[x].FlightID() + "  " + flight[x].FlightName() + "  " + flight[x].Destruction() + "   " + flight[x].TotalSeats());
+         }
+
+        System.out.println();
+        System.out.println("******************************************************");
+        System.out.println();
+         int totalSeats = 4;
+          Seat[] seat = new Seat[totalSeats];
+          int count = 0;
+         while(true){
+             System.out.print("Search flightName you want to booked seat: ");
+             String choice = input.nextLine();
+             if(choice.equalsIgnoreCase("PK-301")){
+                 int booked = 0;
+                  int[][] seat1 = {
+                          { booked, booked, booked, booked},
+                          { booked, booked, booked, booked},
+                          { booked, booked, booked, booked},
+                          { booked, booked, booked, booked},
+                  };
+
+                  for(int row = 0;row< seat1.length;row++){
+                      for(int column = 0;column<seat1[row].length;column++){
+                          seat[row] = new Seat(seat1[row][column]);
+                      }
+                  }
+                 for(int x = 0;x<seat1.length;x++){
+                     if(seat[x].getIsBooked()==0){
+                         System.out.println( (x+1) +  " Available");
+                     }
+                     else if(seat[x].getIsBooked()==1){
+                         System.out.println((x+1) +  "Booked");
+                     }
+                 }
+                 System.out.print("You want to booked a ticket or not (Yes/No) ");
+                 String ticketBooked = input.nextLine();
+                 if(ticketBooked.equalsIgnoreCase("Yes")){
+
+                 }
+
+
+
+
+
+             } else if (choice.equalsIgnoreCase("PK-405")) {
+
+             }
+             else if (choice.equalsIgnoreCase("PK-701")) {
+
+             }
+             else if (choice.equalsIgnoreCase("PK-220")) {
+
+             }
+         }
+
 
 
 
