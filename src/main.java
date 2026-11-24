@@ -132,36 +132,57 @@ public class main {
         System.out.println();
          int totalSeats = 4;
           Seat[] seat = new Seat[totalSeats];
-          int count = 0;
-         while(true){
+        int booked = 0;
+        int[][] seat1 = {
+                { booked, booked, booked, booked},
+                { booked, booked, booked, booked},
+                { booked, booked, booked, booked},
+                { booked, booked, booked, booked},
+        };
+
+        while(true){
              System.out.print("Search flightName you want to booked seat: ");
              String choice = input.nextLine();
              if(choice.equalsIgnoreCase("PK-301")){
-                 int booked = 0;
-                  int[][] seat1 = {
-                          { booked, booked, booked, booked},
-                          { booked, booked, booked, booked},
-                          { booked, booked, booked, booked},
-                          { booked, booked, booked, booked},
-                  };
-
                   for(int row = 0;row< seat1.length;row++){
                       for(int column = 0;column<seat1[row].length;column++){
                           seat[row] = new Seat(seat1[row][column]);
                       }
                   }
-                 for(int x = 0;x<seat1.length;x++){
-                     if(seat[x].getIsBooked()==0){
-                         System.out.println( (x+1) +  " Available");
-                     }
-                     else if(seat[x].getIsBooked()==1){
-                         System.out.println((x+1) +  "Booked");
-                     }
-                 }
+                  for(int row = 0;row<seat1.length;row++){
+                      for(int column  = 0;column<seat1[row].length;column++){
+                          if(seat[column].getIsBooked()==0){
+                              System.out.print( " Available " +  "  ");
+                          }
+                          else if(seat[column].getIsBooked()==1){
+                              System.out.print( " Booked " + "  ");
+                          }
+                      }
+                      System.out.println();
+                  }
                  System.out.print("You want to booked a ticket or not (Yes/No) ");
                  String ticketBooked = input.nextLine();
                  if(ticketBooked.equalsIgnoreCase("Yes")){
-
+                           boolean isBookedSuccessfully = false;
+                           for(int row = 0;row<seat1.length;row++){
+                               for(int column = 0;column<seat1[row].length;column++){
+                                   if(seat1[row][column]==0){
+                                       seat1[row][column] = 1;
+                                       isBookedSuccessfully = true;
+                                       System.out.println("You have booked seat successfully");
+                                       break;
+                                   }
+                               }
+                               if(isBookedSuccessfully){
+                                   break;
+                               }
+                               if(!isBookedSuccessfully){
+                                   System.out.println("All seats are already booked");
+                               }
+                           }
+                 }
+                 else{
+                     break;
                  }
 
 
@@ -177,6 +198,7 @@ public class main {
              else if (choice.equalsIgnoreCase("PK-220")) {
 
              }
+
          }
 
 
