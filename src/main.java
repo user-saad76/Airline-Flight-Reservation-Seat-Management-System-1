@@ -56,7 +56,7 @@ class Flight{
    String FlightName(){
        return flightName;
    }
-   String Destruction(){
+   String getDestination(){
        return Destination;
    }
    String TotalSeats(){
@@ -124,7 +124,7 @@ public class main {
          }
         System.out.println(" FlightID "  + " flightName " + " Destination " + "  TotalSeats ");
          for(int x = 0;x<totalFlights-1;x++){
-             System.out.println(flight[x].FlightID() + "  " + flight[x].FlightName() + "  " + flight[x].Destruction() + "   " + flight[x].TotalSeats());
+             System.out.println(flight[x].FlightID() + "  " + flight[x].FlightName() + "  " + flight[x].getDestination() + "   " + flight[x].TotalSeats());
          }
 
         System.out.println();
@@ -140,6 +140,7 @@ public class main {
                 { booked, booked, booked, booked},
         };
 
+
         while(true){
              System.out.print("Search flightName you want to booked seat: ");
              String choice = input.nextLine();
@@ -150,6 +151,7 @@ public class main {
                       }
                   }
                   for(int row = 0;row<seat1.length;row++){
+                      System.out.print("Row - " + row + "  ");
                       for(int column  = 0;column<seat1[row].length;column++){
                           if(seat1[row][column]==0){
                               System.out.print( " Available " +  "  ");
@@ -160,53 +162,60 @@ public class main {
                       }
                       System.out.println();
                   }
-                  int bookedSeatRow = 0 ;
-                  int bookedSeatColumn = 0;
+
                  System.out.print("You want to booked a ticket or not (Yes/No) or Cancel :  ");
                  String ticketBooked = input.nextLine();
                  if(ticketBooked.equalsIgnoreCase("Yes")){
-                           boolean isBookedSuccessfully = false;
-                           for(int row = 0;row<seat1.length;row++){
-                               for(int column = 0;column<seat1[row].length;column++){
-                                   if(seat1[row][column]==0){
-                                       seat1[row][column] = 1;
-                                       bookedSeatRow = row;
-                                       bookedSeatColumn = column;
-                                       isBookedSuccessfully = true;
-                                       System.out.println("You have booked seat successfully");
-                                       break;
-                                   }
-                               }
-                               if(isBookedSuccessfully){
-                                   break;
-                               }
-                               if(!isBookedSuccessfully){
-                                   System.out.println("All seats are already booked");
-                               }
-                           }
-                 }
-                 else if(ticketBooked.equalsIgnoreCase("Cancel")){
-                     boolean isSeatCancel = false;
+                     System.out.print("Enter the seat row you want to booked : ");
+                     int bookedSeatRow = input.nextInt();
+                     System.out.print("Enter the seat column you want to booked : ");
+                     int bookedSeatColumn = input.nextInt();
+                     input.nextLine();
+                     boolean isbooked = false;
                      for(int row = 0;row<seat1.length;row++){
                          for(int column = 0;column<seat1[row].length;column++){
                              if(row==bookedSeatRow&&column==bookedSeatColumn){
-                                 if(seat1[bookedSeatRow][bookedSeatColumn]==1){
-                                     seat1[bookedSeatRow][bookedSeatColumn] = 0;
-                                     isSeatCancel = true;
+                                 if(seat1[bookedSeatRow][bookedSeatColumn]==0){
+                                     seat1[bookedSeatRow][bookedSeatColumn] = 1;
+                                     isbooked = true;
                                      break;
+                                 }
+                                 else if(seat1[bookedSeatRow][bookedSeatColumn]==1){
+                                     isbooked = false;
+                                     System.out.println("Seat are already booked");
                                  }
                              }
                          }
-                         if(isSeatCancel){
-                             System.out.println("You have cancel seat successfully");
-                             break;
-                         }
+                       if(isbooked){
+                           System.out.println("Your seat are booked successfully");
+                           break;
+                       }
                      }
+                 }
+                 else if(ticketBooked.equalsIgnoreCase("Cancel")){
+                     System.out.print("Enter the seat row you have booked : ");
+                       int bookedSeatRow = input.nextInt();
+                     System.out.print("Enter the seat column you have booked : ");
+                     int bookedSeatColumn = input.nextInt();
+                     input.nextLine();
+                     boolean isCancelled = false;
+                       for(int row = 0;row<seat1.length;row++){
+                           for(int column = 0;column<seat1[row].length;column++){
+                               if(row==bookedSeatRow&&column==bookedSeatColumn){
+                                   if(seat1[row][column]==1){
+                                       seat1[row][column] = 0;
+                                       isCancelled = true;
+                                       break;
+                                   }
+                               }
+                           }
+                           if(isCancelled){
+                               System.out.println("You have cancelled the seat ");
+                               break;
+                           }
+                       }
 
-
-
-
-
+                 }
 
              } else if (choice.equalsIgnoreCase("PK-405")) {
 
@@ -228,5 +237,5 @@ public class main {
 
     }
     }
-}
+
 
